@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christ University - CIA-Mid Sem Result</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            height: 65px;
+            width: auto;
+        }
+
+        .user-info {
+            color: #333;
+            font-size: 14px;
+        }
+
+        .sign-out {
+            color: #0066cc;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 0 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 0;
+        }
+
+        .nav-menu li a {
+            display: block;
+            padding: 15px 25px;
+            color: #003366;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .nav-menu a:hover {
+            background: #f0f0f0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .result-header {
+            background: linear-gradient(to right, #5dade2, #85c1e9);
+            padding: 15px 20px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 0;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .result-table {
+            width: 100%;
+            min-width: 1000px;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .result-table th {
+            background: #e8e8e8;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 600;
+            color: #1a1a1a;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .result-table td {
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .result-table tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .subject-name {
+            text-align: left !important;
+            color: #003366;
+            font-weight: 500;
+            padding-left: 15px !important;
+        }
+
+        .header-group {
+            background: #d4e6f1 !important;
+            font-weight: 600;
+            color: #003366;
+        }
+
+        .sl-no-col {
+            width: 80px;
+        }
+
+        .subject-col {
+            min-width: 250px;
+        }
+
+        .marks-col {
+            width: 120px;
+        }
+
+        .cancel-btn {
+            background: #5dade2;
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            margin: 30px auto;
+            display: block;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+
+        .cancel-btn:hover {
+            background: #4a9fd1;
+        }
+
+        .footer-gradient {
+            height: 30px;
+            background: linear-gradient(to right, #5dade2, #85c1e9);
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px 20px;
+            }
+
+            .logo {
+                height: 50px;
+            }
+
+            .user-info {
+                font-size: 12px;
+            }
+
+            .nav-bar {
+                padding: 0 15px;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+            }
+
+            .nav-menu li a {
+                padding: 12px 15px;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .result-header {
+                font-size: 16px;
+                padding: 12px 15px;
+            }
+
+            .result-table {
+                font-size: 11px;
+                min-width: 900px;
+            }
+
+            .result-table th,
+            .result-table td {
+                padding: 8px 5px;
+            }
+
+            .subject-name {
+                font-size: 11px;
+                padding-left: 10px !important;
+            }
+
+            .cancel-btn {
+                padding: 10px 30px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 15px;
+            }
+
+            .result-table {
+                font-size: 10px;
+                min-width: 800px;
+            }
+
+            .result-table th,
+            .result-table td {
+                padding: 6px 4px;
+            }
+
+            .cancel-btn {
+                padding: 8px 25px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="logo.png" alt="Christ University" class="logo" onerror="this.style.display='none'">
+        <div class="user-info">
+            <strong>Welcome : 24215033</strong>
+            <a href="login.html" class="sign-out">Sign out</a>
+        </div>
+    </div>
+
+    <nav class="nav-bar">
+        <ul class="nav-menu">
+            <li><a href="home.html">HOME</a></li>
+            <li><a href="attendance.html">ATTENDANCE</a></li>
+            <li><a href="#">DOWNLOADS</a></li>
+            <li><a href="#">APPLY ONLINE</a></li>
+            <li><a href="#">STUDENT SUPPORT</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="result-header">
+            CIA-Mid Sem Result
+        </div>
+
+        <div class="table-wrapper">
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th class="sl-no-col">Sl.No</th>
+                        <th class="subject-col">Subject Name</th>
+                        <th colspan="2" class="header-group">202511-CIA1-UG-PG-NCR</th>
+                        <th colspan="2" class="header-group">202511-CIA2-UG-PG-NCR</th>
+                        <th colspan="2" class="header-group">202511-CIA3-UG-PG-NCR</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th class="marks-col">Theory Marks</th>
+                        <th class="marks-col">Practical Marks</th>
+                        <th class="marks-col">Theory Marks</th>
+                        <th class="marks-col">Practical Marks</th>
+                        <th class="marks-col">Theory Marks</th>
+                        <th class="marks-col">Practical Marks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td class="subject-name">INTRODUCTION TO PYTHON</td>
+                        <td>15/20</td>
+                        <td></td>
+                        <td>33/50</td>
+                        <td></td>
+                        <td>13/20</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td class="subject-name">OPERATING SYSTEM</td>
+                        <td>13/20</td>
+                        <td></td>
+                        <td>28/50</td>
+                        <td></td>
+                        <td>14/20</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td class="subject-name">MOBILE APPLICATIONS</td>
+                        <td>16/20</td>
+                        <td></td>
+                        <td>34/50</td>
+                        <td></td>
+                        <td>11/20</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td class="subject-name">COMPUTER NETWORKS</td>
+                        <td>16/20</td>
+                        <td></td>
+                        <td>20/50</td>
+                        <td></td>
+                        <td>17/20</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td class="subject-name">FINANCIAL ACCOUNTING</td>
+                        <td>13/20</td>
+                        <td></td>
+                        <td>37/50</td>
+                        <td></td>
+                        <td>14/20</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td class="subject-name">HOLISTIC EDUCATION DEVELOPMENT-II</td>
+                        <td>11/15</td>
+                        <td></td>
+                        <td>11/15</td>
+                        <td></td>
+                        <td>11/15</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td class="subject-name">GERMAN - I</td>
+                        <td>13/20</td>
+                        <td></td>
+                        <td>09/50</td>
+                        <td></td>
+                        <td>15/20</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <button class="cancel-btn" onclick="window.location.href='home.html'">Cancel</button>
+
+        <div class="footer-gradient"></div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        if (!sessionStorage.getItem('loggedIn')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

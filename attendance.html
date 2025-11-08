@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christ University - Attendance</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            height: 65px;
+            width: auto;
+        }
+
+        .user-info {
+            color: #333;
+            font-size: 14px;
+        }
+
+        .sign-out {
+            color: #0066cc;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 0 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 0;
+        }
+
+        .nav-menu li a {
+            display: block;
+            padding: 15px 25px;
+            color: #003366;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .nav-menu a:hover {
+            background: #f0f0f0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .attendance-header {
+            background: linear-gradient(to right, #5dade2, #85c1e9);
+            padding: 15px 20px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 0;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .attendance-table {
+            width: 100%;
+            min-width: 800px;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .attendance-table th {
+            background: #f0f0f0;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 600;
+            color: #1a1a1a;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .attendance-table td {
+            padding: 10px 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .attendance-table tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .subject-name {
+            text-align: left !important;
+            color: #0066cc;
+            cursor: pointer;
+            padding-left: 15px !important;
+        }
+
+        .subject-name:hover {
+            text-decoration: underline;
+        }
+
+        .percentage-high {
+            color: #000;
+            font-weight: 500;
+        }
+
+        .total-row {
+            background: #f5f5f5 !important;
+            font-weight: 600;
+        }
+
+        .total-row td {
+            color: #003366;
+            font-weight: 600;
+        }
+
+        .note-section {
+            margin-top: 20px;
+            padding: 15px 20px;
+            background: #fff9e6;
+            border-left: 4px solid #ffcc00;
+            font-size: 13px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .note-section p {
+            margin-bottom: 10px;
+        }
+
+        .note-section .red-text {
+            color: #cc0000;
+            font-weight: bold;
+        }
+
+        .note-section .blue-text {
+            color: #0066cc;
+        }
+
+        a.link {
+            color: #0066cc;
+            text-decoration: underline;
+        }
+
+        a.link:hover {
+            color: #004080;
+        }
+
+        .footer-note {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 12px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px 20px;
+            }
+
+            .logo {
+                height: 50px;
+            }
+
+            .user-info {
+                font-size: 12px;
+            }
+
+            .nav-bar {
+                padding: 0 15px;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+            }
+
+            .nav-menu li a {
+                padding: 12px 15px;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .attendance-header {
+                font-size: 16px;
+                padding: 12px 15px;
+            }
+
+            .attendance-table {
+                font-size: 11px;
+                min-width: 700px;
+            }
+
+            .attendance-table th,
+            .attendance-table td {
+                padding: 8px 5px;
+            }
+
+            .subject-name {
+                font-size: 11px;
+                padding-left: 10px !important;
+            }
+
+            .note-section {
+                font-size: 12px;
+                padding: 12px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 15px;
+            }
+
+            .attendance-table {
+                font-size: 10px;
+                min-width: 650px;
+            }
+
+            .attendance-table th,
+            .attendance-table td {
+                padding: 6px 4px;
+            }
+
+            .note-section {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="logo.png" alt="Christ University" class="logo" onerror="this.style.display='none'">
+        <div class="user-info">
+            <strong>Welcome : 24215033</strong>
+            <a href="login.html" class="sign-out">Sign out</a>
+        </div>
+    </div>
+
+    <nav class="nav-bar">
+        <ul class="nav-menu">
+            <li><a href="home.html">HOME</a></li>
+            <li><a href="attendance.html">ATTENDANCE</a></li>
+            <li><a href="#">DOWNLOADS</a></li>
+            <li><a href="#">APPLY ONLINE</a></li>
+            <li><a href="#">STUDENT SUPPORT</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="attendance-header">
+            Attendance
+        </div>
+
+        <div class="table-wrapper">
+            <table class="attendance-table">
+                <thead>
+                    <tr>
+                        <th>Sl.No</th>
+                        <th>Subject Name</th>
+                        <th>Attendance Type</th>
+                        <th>Conducted</th>
+                        <th>Present</th>
+                        <th>Total Hours absent</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td class="subject-name">COMPUTER NETWORKS</td>
+                        <td>Theory</td>
+                        <td>60.0</td>
+                        <td>54.0</td>
+                        <td><a href="#" class="link">6.0</a></td>
+                        <td class="percentage-high">90.00</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td class="subject-name">OPERATING SYSTEM</td>
+                        <td>Theory</td>
+                        <td>47.0</td>
+                        <td>43.0</td>
+                        <td><a href="#" class="link">4.0</a></td>
+                        <td class="percentage-high">91.49</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td class="subject-name">HOLISTIC EDUCATION DEVELOPMENT-II</td>
+                        <td>Theory</td>
+                        <td>13.0</td>
+                        <td>12.0</td>
+                        <td><a href="#" class="link">1.0</a></td>
+                        <td class="percentage-high">92.31</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">4</td>
+                        <td rowspan="2" class="subject-name">MOBILE APPLICATIONS</td>
+                        <td>Theory</td>
+                        <td>46.0</td>
+                        <td>42.0</td>
+                        <td><a href="#" class="link">4.0</a></td>
+                        <td class="percentage-high">91.30</td>
+                    </tr>
+                    <tr>
+                        <td>Practical</td>
+                        <td>22.0</td>
+                        <td>20.0</td>
+                        <td><a href="#" class="link">2.0</a></td>
+                        <td class="percentage-high">90.91</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td class="subject-name">FINANCIAL ACCOUNTING</td>
+                        <td>Theory</td>
+                        <td>43.0</td>
+                        <td>39.0</td>
+                        <td><a href="#" class="link">4.0</a></td>
+                        <td class="percentage-high">90.70</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td class="subject-name">GERMAN - I</td>
+                        <td>Theory</td>
+                        <td>19.0</td>
+                        <td>18.0</td>
+                        <td><a href="#" class="link">1.0</a></td>
+                        <td class="percentage-high">94.74</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">7</td>
+                        <td rowspan="2" class="subject-name">GENERATIVE AI</td>
+                        <td>Theory</td>
+                        <td>3.0</td>
+                        <td>3.0</td>
+                        <td><a href="#" class="link">0.0</a></td>
+                        <td class="percentage-high">100.00</td>
+                    </tr>
+                    <tr>
+                        <td>Practical</td>
+                        <td>14.0</td>
+                        <td>13.0</td>
+                        <td><a href="#" class="link">1.0</a></td>
+                        <td class="percentage-high">92.86</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">8</td>
+                        <td rowspan="2" class="subject-name">INTRODUCTION TO PYTHON</td>
+                        <td>Theory</td>
+                        <td>36.0</td>
+                        <td>33.0</td>
+                        <td><a href="#" class="link">3.0</a></td>
+                        <td class="percentage-high">91.67</td>
+                    </tr>
+                    <tr>
+                        <td>Practical</td>
+                        <td>22.0</td>
+                        <td>20.0</td>
+                        <td><a href="#" class="link">2.0</a></td>
+                        <td class="percentage-high">90.91</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td class="subject-name">Mentoring</td>
+                        <td>Extra Curricular</td>
+                        <td>10.0</td>
+                        <td>9.0</td>
+                        <td><a href="#" class="link">1.0</a></td>
+                        <td class="percentage-high">90.00</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td class="subject-name">Activity Hour</td>
+                        <td>Extra Curricular</td>
+                        <td>5.0</td>
+                        <td>5.0</td>
+                        <td><a href="#" class="link">0.0</a></td>
+                        <td class="percentage-high">100.00</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td class="subject-name">Orientation</td>
+                        <td>Extra Curricular</td>
+                        <td>4.0</td>
+                        <td>4.0</td>
+                        <td><a href="#" class="link">0.0</a></td>
+                        <td class="percentage-high">100.00</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td class="subject-name">Extra Curricular</td>
+                        <td>Extra Curricular</td>
+                        <td>7.0</td>
+                        <td>6.0</td>
+                        <td><a href="#" class="link">1.0</a></td>
+                        <td class="percentage-high">85.71</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="3"><strong>Total</strong></td>
+                        <td><strong>351.0</strong></td>
+                        <td><strong>321.0</strong></td>
+                        <td><strong>30.0</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="6"><strong>Total Percentage</strong></td>
+                        <td class="percentage-high"><strong>91.45</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="note-section">
+            <p><span class="red-text">The medical leave will be considered only if aggregate % is above 75% at the end of semester. Medical leave will be applied between 75% and 85% of attendance with co-curricular</span></p>
+            <p><span class="red-text">The attendance claimed for co-curricular, extra-curricular and departmental activities will be added to the total aggregate at the end of semester.</span></p>
+            <div class="footer-note">
+                <p><span class="blue-text">* Maximum percentage without leave</span></p>
+                <p><span class="blue-text">* Total Percentage=(Total Class Present/Total Class Conducted)*100</span></p>
+                <p><span class="blue-text">* Value added courses not included</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        if (!sessionStorage.getItem('loggedIn')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

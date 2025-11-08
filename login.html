@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christ University - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e8d5f2 0%, #f5e6ff 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: linear-gradient(to right, #d4a5e8, #c89ed9);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-btn {
+            background: transparent;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: normal;
+        }
+
+        .slideshow-text {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #b8b8b8;
+            font-size: 14px;
+            z-index: 5;
+        }
+
+        .logo-watermark {
+            position: fixed;
+            top: 10px;
+            right: 20px;
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        .logo-watermark img {
+            height: 70px;
+            width: auto;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .login-box {
+            background: #a0a0a0;
+            padding: 40px 45px;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .welcome-text {
+            color: white;
+            text-align: center;
+            font-size: 26px;
+            margin-bottom: 30px;
+            font-weight: normal;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            background: white;
+            color: #333;
+        }
+
+        input::placeholder {
+            color: #999;
+        }
+
+        .captcha-container {
+            background: white;
+            padding: 12px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+            justify-content: center;
+            gap: 10px;
+            min-height: 50px;
+        }
+
+        .captcha-text {
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            user-select: none;
+        }
+
+        .captcha-text span {
+            display: inline-block;
+            margin: 0 2px;
+        }
+
+        .refresh-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: #666;
+            padding: 5px;
+            line-height: 1;
+        }
+
+        .refresh-btn:hover {
+            color: #333;
+        }
+
+        .bottom-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+        }
+
+        .forgot-password {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            background: #ff6600;
+            color: white;
+            border: none;
+            padding: 13px 45px;
+            border-radius: 4px;
+            font-size: 17px;
+            cursor: pointer;
+            font-weight: normal;
+        }
+
+        .login-btn:hover {
+            background: #e55a00;
+        }
+
+        .slideshow-dots {
+            text-align: center;
+            margin-top: 35px;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: #c0c0c0;
+            margin: 0 6px;
+        }
+
+        .dot.active {
+            background: #8080a0;
+        }
+
+        .error-message {
+            color: #cc0000;
+            background: #ffe6e6;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 18px;
+            text-align: center;
+            display: none;
+            border: 1px solid #ffcccc;
+        }
+
+        @media (max-width: 768px) {
+            .slideshow-text {
+                display: none;
+            }
+
+            .logo-watermark {
+                top: 60px;
+                right: 10px;
+            }
+
+            .logo-watermark img {
+                height: 50px;
+            }
+
+            .login-box {
+                padding: 30px 25px;
+                max-width: 95%;
+            }
+            
+            .welcome-text {
+                font-size: 22px;
+            }
+
+            input[type="text"],
+            input[type="password"] {
+                padding: 12px 14px;
+                font-size: 14px;
+            }
+
+            .captcha-text {
+                font-size: 22px;
+            }
+
+            .login-btn {
+                padding: 12px 35px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 10px 15px;
+            }
+
+            .contact-btn {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+
+            .login-box {
+                padding: 25px 20px;
+            }
+
+            .welcome-text {
+                font-size: 20px;
+                margin-bottom: 25px;
+            }
+
+            .bottom-section {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+
+            .login-btn {
+                width: 100%;
+            }
+
+            .forgot-password {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="contact-btn">Contact Us</button>
+    </div>
+
+    <div class="logo-watermark">
+        <img src="logo.png" alt="Christ University" onerror="this.style.display='none'">
+    </div>
+
+    <div class="main-content">
+        <span class="slideshow-text">Slideshow Image 1</span>
+        
+        <div class="login-box">
+            <h1 class="welcome-text">Welcome Christite !</h1>
+            
+            <div class="error-message" id="errorMessage">Invalid credentials or captcha!</div>
+
+            <form id="loginForm" onsubmit="return handleLogin(event)">
+                <div class="input-group">
+                    <input type="text" id="username" placeholder="User Name" required autocomplete="username">
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Password" required autocomplete="current-password">
+                </div>
+
+                <div class="captcha-container">
+                    <div class="captcha-text" id="captchaText"></div>
+                    <button type="button" class="refresh-btn" onclick="generateCaptcha()" aria-label="Refresh captcha">↻</button>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" id="captchaInput" placeholder="Type the text above" required autocomplete="off">
+                </div>
+
+                <div class="bottom-section">
+                    <a href="#" class="forgot-password">Forgot Password</a>
+                    <button type="submit" class="login-btn">Login</button>
+                </div>
+            </form>
+
+            <div class="slideshow-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentCaptcha = '';
+
+        function generateCaptcha() {
+            const chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+            let captcha = '';
+            for (let i = 0; i < 6; i++) {
+                captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            currentCaptcha = captcha;
+            
+            const colors = ['#8B4513', '#9932CC', '#FF1493', '#32CD32', '#4169E1', '#FF6347'];
+            const captchaElement = document.getElementById('captchaText');
+            captchaElement.innerHTML = '';
+            
+            for (let i = 0; i < captcha.length; i++) {
+                const span = document.createElement('span');
+                span.textContent = captcha[i];
+                span.style.color = colors[Math.floor(Math.random() * colors.length)];
+                captchaElement.appendChild(span);
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const captchaInput = document.getElementById('captchaInput').value.toLowerCase();
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (username === '24215033' && password === '57465469' && captchaInput === currentCaptcha) {
+                sessionStorage.setItem('loggedIn', 'true');
+                sessionStorage.setItem('studentId', username);
+                window.location.href = 'home.html';
+                return false;
+            } else {
+                errorMessage.style.display = 'block';
+                generateCaptcha();
+                document.getElementById('captchaInput').value = '';
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+                return false;
+            }
+        }
+
+        window.onload = function() {
+            generateCaptcha();
+        };
+    </script>
+</body>
+</html>

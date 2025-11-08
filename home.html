@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christ University - Student Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, rgba(240,240,240,0.5) 0%, rgba(250,250,250,0.5) 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section img {
+            height: 65px;
+            width: auto;
+        }
+
+        .user-info {
+            color: #333;
+            font-size: 14px;
+        }
+
+        .sign-out {
+            color: #0066cc;
+            text-decoration: none;
+            margin-left: 10px;
+            font-weight: 500;
+        }
+
+        .nav-bar {
+            background: white;
+            padding: 0 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 0;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 15px 25px;
+            color: #003366;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: background 0.3s;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            background: #f5f5f5;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 280px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            padding: 12px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+            color: #003366;
+            font-weight: normal;
+        }
+
+        .dropdown-content a:hover {
+            background: #f0f8ff;
+        }
+
+        .main-container {
+            display: flex;
+            gap: 25px;
+            padding: 25px 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .profile-section {
+            background: linear-gradient(135deg, rgba(220,220,220,0.4) 0%, rgba(230,230,230,0.4) 100%);
+            padding: 30px;
+            border-radius: 8px;
+            width: 420px;
+            min-width: 420px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .profile-header {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 150px;
+            min-width: 120px;
+            min-height: 150px;
+            border: 2px solid #333;
+            object-fit: cover;
+            display: block;
+        }
+
+        .profile-title {
+            color: #ff9900;
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+
+        .profile-info {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .info-label {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            color: #333;
+            font-size: 15px;
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        .edit-btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 3px;
+            margin-left: 8px;
+            cursor: pointer;
+            vertical-align: middle;
+            font-size: 13px;
+            border: none;
+            text-decoration: none;
+        }
+
+        .edit-btn:hover {
+            background: #2980b9;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 10px;
+            width: 100%;
+            font-weight: 500;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .notifications-section {
+            flex: 1;
+            background: linear-gradient(135deg, rgba(245,245,245,0.5) 0%, rgba(250,250,250,0.5) 100%);
+            padding: 30px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .notifications-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            color: #ff6600;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .notification-icon {
+            font-size: 40px;
+        }
+
+        .notification-item {
+            background: white;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            border-radius: 5px;
+            border-left: 4px solid #0066cc;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .notification-item a {
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .notification-item a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .profile-section {
+                width: 100%;
+                min-width: auto;
+            }
+
+            .nav-menu {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px 20px;
+            }
+
+            .logo-section img {
+                height: 50px;
+            }
+
+            .nav-bar {
+                padding: 0 15px;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+            }
+
+            .nav-menu a {
+                padding: 12px 15px;
+            }
+
+            .main-container {
+                padding: 15px;
+            }
+
+            .profile-section {
+                padding: 20px;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile-image {
+                width: 100px;
+                height: 125px;
+                min-width: 100px;
+                min-height: 125px;
+            }
+
+            .profile-title {
+                margin-top: 15px;
+                font-size: 26px;
+            }
+
+            .notifications-section {
+                padding: 20px;
+            }
+
+            .notifications-header {
+                font-size: 24px;
+            }
+
+            .dropdown-content {
+                position: static;
+                display: none;
+                box-shadow: none;
+                border-left: 3px solid #0066cc;
+                margin-left: 15px;
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 15px;
+            }
+
+            .user-info {
+                font-size: 12px;
+            }
+
+            .profile-section {
+                padding: 15px;
+            }
+
+            .profile-image {
+                width: 90px;
+                height: 110px;
+                min-width: 90px;
+                min-height: 110px;
+            }
+
+            .info-value {
+                font-size: 14px;
+            }
+
+            .notification-item {
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section">
+            <img src="logo.png" alt="Christ University" onerror="this.style.display='none'">
+        </div>
+        <div class="user-info">
+            <strong>Welcome : 24215033</strong>
+            <a href="login.html" class="sign-out">Sign out</a>
+        </div>
+    </div>
+
+    <nav class="nav-bar">
+        <ul class="nav-menu">
+            <li><a href="home.html">HOME</a></li>
+            <li class="dropdown">
+                <a href="#" onclick="toggleDropdown(event)">ATTENDANCE ▾</a>
+                <div class="dropdown-content">
+                    <a href="attendance.html">ATTENDANCE</a>
+                    <a href="#">VALUE ADDED</a>
+                    <a href="#">ATTENDANCE</a>
+                    <a href="#">ABSENCE DETAILS</a>
+                    <a href="#">PREVIOUS CLASS</a>
+                    <a href="#">ATTENDANCE</a>
+                    <a href="#">VIEW MY TIME TABLE</a>
+                    <a href="#">LIBRARY ATTENDANCE</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" onclick="toggleDropdown(event)">DOWNLOADS ▾</a>
+                <div class="dropdown-content">
+                    <a href="cia.html">CIA-MID SEM RESULT</a>
+                    <a href="#">PREVIOUS CLASS CIA-MID SEM RESULT</a>
+                    <a href="#">END SEMESTER MARKS</a>
+                    <a href="#">MY MARKS CARD</a>
+                    <a href="#">VALUE ADDED COURSES</a>
+                    <a href="#">CERTIFICATES</a>
+                    <a href="#">ESE COMPONENT MARKS</a>
+                    <a href="#">FEE PAYMENT DETAILS</a>
+                    <a href="#">OPEN ELECTIVE STATUS</a>
+                    <a href="#">FEE DEMAND SLIP</a>
+                    <a href="#">COURSE PACK</a>
+                    <a href="#">DOCUMENT SUBMISSION STATUS</a>
+                    <a href="#">PROGRAMME COMPLETION STATUS</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" onclick="toggleDropdown(event)">APPLY ONLINE ▾</a>
+                <div class="dropdown-content">
+                    <a href="#">CERTIFICATE REQUEST</a>
+                    <a href="#">CERTIFICATE STATUS</a>
+                    <a href="#">MARKS CARD ATTESTATION</a>
+                    <a href="#">ORIGINAL TRANSCRIPT REQUEST</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" onclick="toggleDropdown(event)">STUDENT SUPPORT ▾</a>
+                <div class="dropdown-content">
+                    <a href="#">SUPPORT REQUEST</a>
+                    <a href="#">FACULTY LOCATION</a>
+                    <a href="#">DATA BANK</a>
+                    <a href="#">MY COURSE</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="main-container">
+        <div class="profile-section">
+            <div class="profile-header">
+                <img src="profile.png" alt="Profile" class="profile-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 150%22%3E%3Crect width=%22120%22 height=%22150%22 fill=%22%23e0e0e0%22/%3E%3Ccircle cx=%2260%22 cy=%2255%22 r=%2225%22 fill=%22%23999%22/%3E%3Cpath d=%22M 30 105 Q 60 85 90 105 L 90 150 L 30 150 Z%22 fill=%22%23999%22/%3E%3C/svg%3E'">
+                <div class="profile-title">Profile</div>
+            </div>
+
+            <div class="profile-info">
+                <div class="info-label">Name :</div>
+                <div class="info-value">REBECCA SAXENA</div>
+            </div>
+
+            <button class="btn-primary">Academic Progression</button>
+
+            <div class="profile-info" style="margin-top: 20px;">
+                <div class="info-label">Class :</div>
+                <div class="info-value">3BCA DNC A</div>
+            </div>
+
+            <div class="profile-info">
+                <div class="info-label">Mobile No :</div>
+                <div class="info-value">
+                    7991442466
+                    <button class="edit-btn">Edit</button>
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <div class="info-label">Bank AccNo :</div>
+                <div class="info-value">0355053000018530</div>
+            </div>
+
+            <div class="profile-info">
+                <div class="info-label">Academic Bank of Credits(ABC) ID:</div>
+                <div class="info-value">497379090663</div>
+            </div>
+
+            <div class="profile-info">
+                <div class="info-label">Name as per Aadhar :</div>
+                <div class="info-value">REBECCA SAXENA</div>
+            </div>
+
+            <div class="profile-info">
+                <div class="info-label">Personal Email ID :</div>
+                <div class="info-value">
+                    rebeccasaxena30@
+                    <button class="edit-btn">Edit</button>
+                </div>
+            </div>
+
+            <button class="btn-primary">View My Details</button>
+        </div>
+
+        <div class="notifications-section">
+            <div class="notifications-header">
+                <span class="notification-icon">🔔</span>
+                <span>Notifications</span>
+            </div>
+
+            <div class="notification-item">
+                <a href="#">• Faculty Evaluation</a>
+            </div>
+
+            <div class="notification-item">
+                <a href="#">• Scholarship Notice: UG and PG</a>
+            </div>
+
+            <div class="notification-item">
+                <a href="#">• Scholarship Notice: UG and PG Courses</a>
+            </div>
+
+            <div class="notification-item">
+                <a href="#">• APPLICATION FOR EXIT</a>
+            </div>
+
+            <div class="notification-item">
+                <a href="#">• INTERNSHIP APPROVAL FORM</a>
+            </div>
+
+            <div class="notification-item">
+                <a href="#">• List of University-Approved Coursera Courses for the award of extra credits</a>
+            </div>
+
+            <div class="notification-item">
+                <a href="#">• Public & Restricted Holiday List 2025</a>
+            </div>
+
+            <div class="notification-item">
+                <a href="#">• INDEMNITY CERTIFICATE NCR</a>
+            </div>
+
+            <div class="notification-item">
+                <a href="#">• ACADEMIC CALENDAR 2025_2026_DELHI NCR CAMPUS</a>
+            </div>
+
+            <div class="notification-item">
+                <a href="#">• STUDENT HANDBOOK 2025-2026</a>
+            </div>
+
+            <div class="notification-item">
+                <a href="#">• Policy on Research Travel Grants for Students to Attend Conferences</a>
+            </div>
+
+            <div class="notification-item">
+                <a href="#">• Student's Research Travel Grant - Proposal Submission Form</a>
+            </div>
+
+            <div class="notification-item">
+                <a href="#">• Application Form for Research Internship Financial</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        if (!sessionStorage.getItem('loggedIn')) {
+            window.location.href = 'login.html';
+        }
+
+        // Mobile dropdown toggle
+        function toggleDropdown(event) {
+            if (window.innerWidth <= 768) {
+                event.preventDefault();
+                const dropdown = event.target.parentElement;
+                dropdown.classList.toggle('active');
+            }
+        }
+    </script>
+</body>
+</html>
